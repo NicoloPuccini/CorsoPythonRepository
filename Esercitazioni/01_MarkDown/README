@@ -1,0 +1,63 @@
+# 1 Lezione Corso Python
+
+## bla bla vbla
+
+scrivo qualcosa
+
+# I back tick alt96 permettono di scrivere codice su md e farlo formattare come codice del linguaggio specificato
+
+```python
+
+print(hello world)
+
+```
+
+# Il mermaid ottimo per fare grafici diagrammi e grafi
+
+```mermaid
+graph TD;
+A-->B;
+
+```
+
+# Titolo
+
+## Sottotitolo
+
+### Titolo paragrafo
+
+#### sottotitolo Paragrafo
+
+**testo in grassetto**
+
+_italic_
+
+> quote (citazione)
+
+### elenco puntato
+
+- elem1
+- elem2
+- elem3
+
+### elenco numerato
+---
+1. primo
+2. secondo
+3. terzo
+
+### checkbox
+
+- [x] elem1
+- [ ] elem2
+
+### link
+
+[testo del link](https://www.google.com)
+
+### Summary
+
+<details>
+<summary>Mostra dettagli</summary>
+  testo dettagli da espandere
+</details>
