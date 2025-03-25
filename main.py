@@ -33,8 +33,8 @@ import msvcrt
 tasto = msvcrt.getch() #Legge il tasto premuto
 
 # Se il tasto premuto è enter
-if tasto ==b'\r': # '\r' rappresenta in ASCII il tasto enter
-    # b indica che è un byte 
+if tasto == b'\r': # '\r' rappresenta in ASCII il tasto enter
+    # b indica che è un byte
     print("Hai premuto il tasto enter")
 if tasto.lower() == b's': #Confronto il tasto convertito in minuscolo con 's'
     # lower. converte il valore di tasto in minuscolo
