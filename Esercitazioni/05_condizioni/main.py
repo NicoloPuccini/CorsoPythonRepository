@@ -3,7 +3,7 @@
 
 # non c'è lo switch solo if else ed elif (che è if else)
 num=5
-if num_r < 10 :
+if num < 10 :
     print(num)
 else:
     print(num-2)
@@ -18,6 +18,7 @@ else :
     print(3)
 
 #Match case (Non si usa quasi mai) ed è simile allo switch
+y = 5
 match y :
     case 5:
         print(5)
