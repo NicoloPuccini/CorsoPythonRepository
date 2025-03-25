@@ -1,2 +1,5 @@
 #pipenv
 /.venv
+
+#Cartella non versionata
+/non_versionati
