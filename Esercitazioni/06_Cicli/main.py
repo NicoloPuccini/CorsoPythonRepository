@@ -35,4 +35,4 @@ while True :
     l+=1
     if not (l>10):
         break
-
+# continue fa ripartire il ciclo while da capo
