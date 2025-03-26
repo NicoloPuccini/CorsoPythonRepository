@@ -27,6 +27,9 @@ print(data_nascita)
 import array
 numeri = array.array('i',[10,20,30,40,50]) #Dichiarazione e inizializzazione di array interi 
                                             # 'i' identifica un array di interi
+[int for _ in range(6)] #array di 6 int
+[[] for _ in range(6)] #array di 6 array
+
 print(numeri)
 numeri.append(60)
 print(numeri)
