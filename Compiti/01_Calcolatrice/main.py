@@ -14,9 +14,12 @@ while True :
         print(ans)
     elif operation =='/':
         ans = num_1 / num_2
-        print(ans)
+        if num_2 == 0:
+            print("Its not possible divide by 0")
+        else:
+            print(ans)
     else:
-        print("input and operation does not match\n")
+        print("input are not valid\n")
 
     end_calc = input("end program ? [Y/N]\n")
     if end_calc.lower=='y'or end_calc.upper=='Y'or end_calc=='y':
