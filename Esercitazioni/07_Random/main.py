@@ -4,7 +4,7 @@ import random #importo la libreria random
 
 #metodi di Random
 
-rand = random.randint(1,101) #sorteggia un int in un range chiuso
+rand = random.randint(1,101) #sorteggia un int in un range chiuso da 1 a 100
 
 random.choice(["ciao","hello"]) #sorteggia un elemento da una lista
 

@@ -27,6 +27,12 @@ data_nascita = datetime(2000,12,30)
 
 print(data_nascita)
 
+
+
+
+
+
+
 # TIPI DI DATI COMPLESSI (o strutture di dati)
 
 # Array
@@ -126,18 +132,70 @@ print (f"il voto di matematica è : {voti["matematica"]}") #faccio riferimento a
 
 
 
+
+
+
+
+
+
 # Set 
 
 # (Insiemi non ordinati di elementi non modificabili , gli elementi devono 
 # essere dello stesso tipo, non ammette elementi duplicati)
-insieme = {}
+set_1 = {"sedano", "carote", "patate" ,"cavolo", "sedano"}
+print(set_1)              # Non stamperà 2 sedani ma solo uno perchè gli elementi 
+                          #di un set non possono avere duplicati
+
+#metodi e operazioni non presenti in set:
+#Non si può accedere direttamente ad un valore specifico del set
+#set_1.insert(0,"mais")   
+#set_1.sort()
+#set_1.reverse()
+
+#metodi di set:
+"sedano" in set_1      # true se sedano è contenuto in set_1
+
+#Sia discard che remove levano uno specifico elemento dal set , 
+# la differenza fra i due è che remove genera un errore se l'elemento non è presente nel set 
+set_1.remove("mais")
+set_1.discard("mais")
+
+set_1.add("lattuga") #Aggiunge un elemento al set
+set_1.update(["uova","formaggio"]) #Amplia gli elementi del set con un iterabile (una lista,un set)
+
+set_1.pop() #Estrae un elemento a caso dal set e lo rimuove 
+set_1.clear() #Cancella tutto il set
+
+
+
+
+
+
+
 
 
 
 
 # Tuple
+#Una tupla non può essere modificata in alcun modo dopo la creazione , sono const 
+#Sono piu veloci e meno dispendiose delle liste.
+#ammettono duplicati
+#E' ordinata (mantiene l'ordinamento)
 
-bi_tupla = (1,2)
+
+bi_tupla = (1,2,9,10)
+tupla_2 = ("cane", "gatto", "balena")
+
+tupla_2[0] #Posso leggere direttamente agli elementi (leggendoli)
+
+#tupla_2[1] ="gallina"              #ma non posso modificarli QUESTO DA ERRORE !
+#tupla_2.insert(0,"scoiattolo")                         #Anche questo da ERRORE!
+
+tupla_2.count("cane")   #Restituisce le occorrenze di cane nella tupla  
+                        #(cioè quanti cane sono nella tupla)
+
+tupla_2.index("cane")   #Ritorna l'indice (posizione) della prima occorrenza di cane 
+                        #che trova nella tupla 
 
 range(*bi_tupla)     #  * Permette di spacchettare la tupla per poterla usare 
                      # come argomento di un metodo
@@ -150,3 +208,29 @@ any(bi_tupla)        #La funzione any richiede come argomento un iterabile ,
                      # any ritorna true se trova almeno un true fra gli elementi 
                      # iterabili o altrimenti false.
                      #termina appena incontra un true per efficienza.
+
+
+
+# Dizionario
+#I dizionari sono ottimizzati per trovare un argomento al suo interno (find)
+# Memorizza i dati in coppie chiave valore 
+# Il dizionario è una memoria non ordinata , modificabile e indicizzata.
+#Le chiavi sono univoche
+#il tipo dei valori può essere diverso , le chiavi devono avere tutte lo stesso tipo 
+
+diz_1 = {"mela":2, "banana":3, "ciliegia":5}
+
+diz_1["mela"] = 4  #Modifica il valore associato alla chiave 
+
+diz_1["fragola"] = 6 #Aggiunge una nuova coppia chiave valore 
+
+diz_1.pop("banana")  #Rimozione di una coppia chiave valore e ritorna il valore 
+
+diz_1["fragola"] = diz_1.pop("mela") #Sostituisce la chiave mela con la chiave fragola 
+
+diz_1.keys()    #Ritorna la lista delle chiavi
+diz_1.values()  #Ritorna la lista di tutti i valori
+diz_1.items()   #Ritorna una lista di tuple con le coppie chiave valore 
+
+diz_1.clear()   #cancella il dizionario
+

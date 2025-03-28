@@ -5,7 +5,7 @@
 
 #FOR
 
-for i in range(11): #range genera elementi da 0 a 10
+for i in range(11): #range genera elementi da 0 a 10  
     print(i)
 
 #For each
