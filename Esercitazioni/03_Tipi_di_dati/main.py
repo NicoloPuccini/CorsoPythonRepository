@@ -138,3 +138,15 @@ insieme = {}
 # Tuple
 
 bi_tupla = (1,2)
+
+range(*bi_tupla)     #  * Permette di spacchettare la tupla per poterla usare 
+                     # come argomento di un metodo
+
+
+any(bi_tupla)        #La funzione any richiede come argomento un iterabile , 
+                     #puo essere una tupla, una lista, una collezione o un 
+                     # qualsiaso oggetto iterabile 
+                     
+                     # any ritorna true se trova almeno un true fra gli elementi 
+                     # iterabili o altrimenti false.
+                     #termina appena incontra un true per efficienza.
