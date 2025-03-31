@@ -12,17 +12,17 @@ while True:
         if new_article in inventory.keys() :
             print("Articolo già presente usa quantity")
             continue
-
+        new_price = input("Inserisci prezzo unitario")
         new_quantity = input("In che quantità ? ")
-        inventory[new_article] = new_quantity
+        inventory[new_article] = {"price" : new_price, "quantity" : new_quantity }
 
     
     if command == "quantity" or command == "Quantity" :
         #Aggiorno la quantità di un articolo
-        new_article = input("Quale articolo vuoi modificare ? ")
-        if new_article in inventory.keys() :
-            new_quantity = input("In che quantità ? ")
-            inventory[new_article] = new_quantity
+        mod_article = input("Quale articolo vuoi modificare ? ")
+        if mod_article in inventory.keys() :
+            mod_quantity = input("In che quantità ? ")
+            inventory[mod_article] ["quantity"] = mod_quantity
         else:
             print("Articolo non presente nell'inventario")
             continue
