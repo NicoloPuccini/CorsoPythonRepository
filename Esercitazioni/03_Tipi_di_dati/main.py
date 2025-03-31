@@ -211,6 +211,9 @@ any(bi_tupla)        #La funzione any richiede come argomento un iterabile ,
 
 
 
+
+
+
 # Dizionario
 #I dizionari sono ottimizzati per trovare un argomento al suo interno (find)
 # Memorizza i dati in coppie chiave valore 
@@ -225,6 +228,11 @@ diz_1["mela"] = 4  #Modifica il valore associato alla chiave
 diz_1["fragola"] = 6 #Aggiunge una nuova coppia chiave valore 
 
 diz_1.pop("banana")  #Rimozione di una coppia chiave valore e ritorna il valore 
+diz_1.popitem()      #Restituisce l'ultima coppia chiave valore che ho inserito
+                    #e la cancella dal diz
+keys = ['a','b','c']
+diz_2 = dict.fromkeys(keys,0)   #Fromkeys crea un nuovo dizionario specificando 
+                                #le chiavi e un valore predefinito
 
 diz_1["fragola"] = diz_1.pop("mela") #Sostituisce la chiave mela con la chiave fragola 
 
@@ -233,4 +241,6 @@ diz_1.values()  #Ritorna la lista di tutti i valori
 diz_1.items()   #Ritorna una lista di tuple con le coppie chiave valore 
 
 diz_1.clear()   #cancella il dizionario
+
+
 
