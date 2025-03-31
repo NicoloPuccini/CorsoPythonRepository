@@ -20,8 +20,12 @@ while True:
     if command == "quantity" or command == "Quantity" :
         #Aggiorno la quantità di un articolo
         new_article = input("Quale articolo vuoi modificare ? ")
-        new_quantity = input("In che quantità ? ")
-        inventory[new_article] = new_quantity
+        if new_article in inventory.keys() :
+            new_quantity = input("In che quantità ? ")
+            inventory[new_article] = new_quantity
+        else:
+            print("Articolo non presente nell'inventario")
+            continue
 
     if command == "print" or command == "Print" :
         #Stampo il dizionario
