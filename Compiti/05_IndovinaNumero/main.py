@@ -34,13 +34,22 @@ while True :
         
 n_generated = random.randint(1,rand_num_cap)
 
+lista_tentativi = []
+
 while not won :
     while True:
-        tentativo = input(f"\nProva ad indovinare\nInserisci un numero tra 1 e {rand_num_cap} :")
+        if len(lista_tentativi) > 0 :
+            print(f"Precedenti tentativi : ")
+            for tent in lista_tentativi:
+                print(tent)
+
+        tentativo = input(f"\nProva ad indovinare\nInserisci un numero tra 1 e {rand_num_cap-1} :")
        
         if tentativo.isnumeric() and int(tentativo) < rand_num_cap and int(tentativo) > 0:
             tentativo = int(tentativo)
             break
+
+    lista_tentativi.append(tentativo)
 
     if n_tentativi >= MAX_TENTATIVI:
         points -= penalita
