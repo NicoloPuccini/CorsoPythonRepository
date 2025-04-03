@@ -21,7 +21,8 @@ else:
             file_extensione = os.path.splitext(filename)[1]
             file_dimensioni = os.path.getsize(source_file)
             file_data_creazione = datetime.datetime.fromtimestamp(os.path.getctime(source_file))
-            files_info_list.append((file_nome,file_extensione,file_dimensioni,file_data_creazione,source_file))
+            file_abs_path = os.path.abspath(source_file)
+            files_info_list.append((file_nome,file_extensione,file_dimensioni,file_data_creazione,file_abs_path))
 
 
 

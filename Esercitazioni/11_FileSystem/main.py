@@ -89,7 +89,8 @@ path_n = os.path.join(dir_path, "test.txt")     #Vuole come parametro il path de
 #Estrarre il path relativo
 relative_path = os.path.relpath(path_1,dir_path)
 
-
+#estrarre il path assoluto
+abs_path = os.path.abspath(path_1)
 
 
 

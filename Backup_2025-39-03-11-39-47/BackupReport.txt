@@ -1,0 +1,14 @@
+REPORT Backup:
+
+Nome file : file_test_1
+Estensione : .txt
+Dimensioni : 0
+Data di creazione : 2025-04-02 11:40:47.641385
+Path assoluto :C:\Users\Elda\Desktop\Corso Python\CorsoPythonRepository\test\file_test_1.txt
+--------------------------------------------------------------------------------
+Nome file : file_test_2
+Estensione : .xlsx
+Dimensioni : 6595
+Data di creazione : 2025-04-02 11:41:15.491322
+Path assoluto :C:\Users\Elda\Desktop\Corso Python\CorsoPythonRepository\test\file_test_2.xlsx
+--------------------------------------------------------------------------------
