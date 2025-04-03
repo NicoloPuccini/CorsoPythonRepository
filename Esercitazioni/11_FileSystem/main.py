@@ -92,6 +92,13 @@ relative_path = os.path.relpath(path_1,dir_path)
 #estrarre il path assoluto
 abs_path = os.path.abspath(path_1)
 
+#spostare un file da una directory ad un altra 
+path_elem_to_move = "test"
+destination = "test/txt"
+shutil.move(path_elem_to_move, destination)   #funziona anche per muovere cartelle , 
+                                             #muove anche tutto il loro contenuto
+                                             #Il path destinazione può essere un file,
+                                             #in tal caso rinomina il file
 
 
 
