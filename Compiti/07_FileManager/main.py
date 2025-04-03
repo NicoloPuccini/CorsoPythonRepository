@@ -1,69 +1,46 @@
 import os
+import datetime
+import shutil
 
+sorgente = input("Cartella da salvare : ")
+destinazione =input("Cartella destinazione : ")
 
-dir_path = "test"
-dir_content = os.listdir(dir_path)
-print("\n")
-print("-"*80)
-print(dir_content)
-list_content = []
-list_date = []
-list_dimension = []
-
-for content in dir_content :
-    content_path = f"{dir_path}/{content}"
-    if (os.path.exists(content_path)):
-        if(os.path.isdir(content_path)):
-            isDir = "Directory"
-            extension = ""
-        else: 
-            if os.path.isfile(content_path):
-                isDir = "File"
-                extension = os.path.splitext(content_path)[1]
-        
-        creation_date = os.path.getctime(content_path)
-        list_date.append(creation_date)
-        dimension = os.path.getsize(content_path)
-        list_dimension.append(dimension)
-
-    content_info = (content , extension , isDir , dimension ,creation_date )
-    list_content.append(content_info)
-
-while True :
-    print(f"\n{list_content} \n")
-    sorting_method = int(input ("Sort By :\n0 -Extension\n1 -Dimension\n2 -Creation Date"))
-
-    if sorting_method == 0:
-        extension_desired = input("Digit witch file extension are you looking for")
-        for content in list_content:
-            if(content[1]==extension_desired):
-                print(content)
-        break
+if not os.path.isdir(sorgente):   #Controlla se la sorgente esiste
+    print("la sorgente non esiste")
+else:
+    timestamp = datetime.datetime.now().strftime("%Y-%M-%d-%H-%M-%S")
+    backup_folder = os.path.join(destinazione, f"Backup_{timestamp}") #Creo un nome unico con timestamp per la cartella di backub 
+                                                                      #e la metto in destinazione
     
-
-    if sorting_method == 1 :
-        list_dimension.sort()
-        while len(list_content)!=0:
-            for dim in list_dimension :
-                for content in list_content:
-                    if content[3]==dim :
-                        print(content)
-                        list_content.remove(content)
-        break
-
-    if sorting_method == 2 :
-        list_date.sort()
-        while len(list_content)!=0:
-            for date in list_date :
-                for content in list_content:
-                    if content[4]==date:
-                        print(content)
-                        list_content.remove(content)
-        break
+    files_info_list = []
+    os.makedirs(backup_folder,exist_ok=True)   #Creo la cartella in destinazione
+    for filename in os.listdir(sorgente):
+        source_file = os.path.join(sorgente, filename)
+        if os.path.isfile(source_file):
+            file_nome = os.path.splitext(filename)[0]
+            file_extensione = os.path.splitext(filename)[1]
+            file_dimensioni = os.path.getsize(source_file)
+            file_data_creazione = datetime.datetime.fromtimestamp(os.path.getctime(source_file))
+            files_info_list.append((file_nome,file_extensione,file_dimensioni,file_data_creazione,source_file))
 
 
-print("-"*40)
 
-                
+            shutil.copy(source_file,backup_folder)
+    print(f"Backup completo in : {backup_folder}")
 
 
+    with open(os.path.join(backup_folder,"BackupReport.txt"),"w") as file :  #crea un file vuoto  test.txt per "w" scriverci dentro 
+        pass                                                             #Il file viene chiuso automaticamente al termine del blocco with
+
+        file.write("REPORT Backup:\n")
+        for file_info in files_info_list:
+            file.writelines(f"\nNome file : {file_info[0]}\nEstensione :"
+                            f" {file_info[1]}\nDimensioni : {file_info[2]}\n"
+                            f"Data di creazione : {file_info[3]}\nPath assoluto :"
+                            f"{file_info[4]}\n")
+            file.write("-"*80)
+
+
+    ##Ma non tiene conto delle cartelle e della copia del loro contenuto 
+    #Per quello dobbiamo usare funzioni ricorsive o shutil.copytree
+    
