@@ -36,6 +36,8 @@ print(data_nascita)
 # TIPI DI DATI COMPLESSI (o strutture di dati)
 
 # Array
+#Sono come le liste ma possono accogliere solo dati dello stesso tipo 
+
 import array
 numeri = array.array('i',[10,20,30,40,50]) #Dichiarazione e inizializzazione di array interi 
                                             # 'i' identifica un array di interi
@@ -61,7 +63,6 @@ for numero in numeri:
 
 # Liste (E' un array dinamico)
 
-# (E' una Pila quindi con elementi non accessibile direttamente )
 # Una lista a differenza degli array può accogliere come elementi tipi diversi di dati
 # Ammette elementi duplicati
 numeri_lista = [10,"20",30,40,50] #dichiarazione e inizializzazione di una lista
@@ -70,14 +71,14 @@ print(numeri_lista)
 
 frutta=["mela","pera","banana","ananas","mela"]
 frutta[2] # Posso accedere direttamente agli elementi della lista
-frutta[-1]   #Accedo all'Ultimo elemento della lista 
+frutta[-1]   #Accedo all'Ultimo elemento della lista
 frutta[-2]   #Accedo al penultimo elemento
 frutta[::]   #Accedo a tunti gli elementi
-frutta[::2]  #Accedo a tutti gli elementi dispari 
+frutta[::2]  #Accedo a tutti gli elementi dispari
 frutta[1:3]  #Accedo dal secondo fino al terzo elemento
 
-print(dir(frutta)) #Stampa tutti i metodi del contenuto in questo caso la lista 
-print(help(frutta)) #Stampa tutta la documentazione dell'oggetto 
+print(dir(frutta)) #Stampa tutti i metodi del contenuto in questo caso la lista
+print(help(frutta)) #Stampa tutta la documentazione dell'oggetto
 print(help(frutta.append)) #Stampa la documentazione del metodo apend
 
 len(frutta)       #Ritorna il numero di elementi della lista

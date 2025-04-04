@@ -1,6 +1,16 @@
 #Metodi files & directories
 import os
 
+#ATTENZIONE: Tutti questi metodi vogliono come argomenti dei path non il nome dei file 
+            #puoi sempre ottenerli facendo os.path.join(path_cartella,nome_file)
+            #non usare indirizzi di memoria assoluti , tendono ad incasinare tutto
+            #gli indirizzi in memoria relativi si basano sulla cartella attualmente in uso dalla console
+
+os.chdir("/percorso/della/cartella") #Cambia la directory di lavoro con quella segnata nel percorso 
+                                     #La directory di lavoro influenza gli indirizzi relativi
+                                     #E la cartella in cui la console sta lavorando in quel momento
+
+os.getcwd() #Ritorna la directory di lavoro corrente
 
 
 
