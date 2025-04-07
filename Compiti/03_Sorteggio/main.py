@@ -60,6 +60,17 @@ while yn == True :
             if j==0 :
                 print("\nCapitano : ", end="")   # Print che non va accapo , resta inline
             print ((squadre[i])[j])
+
+    #Stampa le squadre su file 
+
+    with open("Squad_saving.txt","w") as file:
+        pass
+        for i in range(n_squadre):
+            for j in range(len(squadre[i])):
+                if j==0 :
+                    file.write("\nCapitano : ", end="")   # Print che non va accapo , resta inline
+            file.write(f"{(squadre[i])[j]}")
+        
     # Chiedo se si wuole ripetere il sorteggio
     yn = True
     while True:

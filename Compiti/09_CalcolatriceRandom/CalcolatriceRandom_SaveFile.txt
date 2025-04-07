@@ -1,0 +1,1 @@
+{'punteggio': 0, 'round': 1, 'last_round_data': (0, 0, 0)}

@@ -40,7 +40,6 @@ with open(path_1,"w") as file :       #usare di nuovo "w" al posto di "a" porta 
 
 
 with open(path_1,"w") as file :      # "a" serve per aggiungere (add)
-    pass
     #file.write(f"{line}\n" for line in lines)  
     file.writelines(f"{line}\n" for line in lines)
 

@@ -1,0 +1,1 @@
+{'punteggio': 0, 'numero_partita': 0, 'parole': ['rana', 'fringuello', 'cane', 'zuzzurellone', 'cannuccia']}
