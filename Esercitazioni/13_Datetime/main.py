@@ -9,7 +9,7 @@ print(f"Sei nato il {birth_date.strftime('%d%M%Y')}")   #Stampa la data di nasci
 
 #Ottieni la data di oggi 
 today = datetime.today()
-print(f"Oggi è : {today.strftime("%d%M%Y")}")
+print(f"Oggi è : {today.strftime("%d%M%Y %H:%M:%S")}")
 
 #Calcoli con le date
 
@@ -29,7 +29,7 @@ next_month = today + timedelta(days = 60) #aggiungo 2 mesi alla data
 #Conversione stringa data 
 date = datetime.strptime("2024-12-31","%Y-%m-%d")  #strptime converte una stringa in una data
 
-#Conversione dato stringa 
+#Conversione data in stringa 
 date_string = date.strftime("%d/%m/%Y") 
 
 type(date_string)   #Ritorna il tipo della variabile 
