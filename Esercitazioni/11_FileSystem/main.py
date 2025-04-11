@@ -13,6 +13,9 @@ os.chdir("/percorso/della/cartella") #Cambia la directory di lavoro con quella s
 os.getcwd() #Ritorna la directory di lavoro corrente
 
 
+#ATTENZIONE:     \A è un carattere escape come \n , se hai una cartella o devi fare un path che ha uno 
+                #\A puoi usare \\A per evitare che ti dia errore (Anche se non è un errore bloccante)
+path_1 = "./cartella1\\Alfabeto.txt"
 
 #Creare un file
 path_1 = "./test.txt"
