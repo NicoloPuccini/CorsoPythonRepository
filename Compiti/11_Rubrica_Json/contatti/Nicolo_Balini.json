@@ -1,0 +1,16 @@
+{
+    "nome": "Nicolo",
+    "cognome": "Balini",
+    "telefono": [
+        {
+            "tipo": "cell",
+            "numero": "9999999999"
+        }
+    ],
+    "attivo": true,
+    "attivita": [
+        "travel blogger",
+        "content creator"
+    ],
+    "data_di_creazione": "2025-04-14"
+}

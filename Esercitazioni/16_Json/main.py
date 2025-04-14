@@ -81,6 +81,21 @@ obj["nome"] = "nome2"
 with open(path , "w") as file:
      json.dump(obj,file,indent = 4 )
 
+# CREARE UN JSON PARTENDO DA UN DIZIONARIO
+# creo un dizionario
+dizionario = {
+    "nome": "Nome1",
+    "cognome": "Cognome1",
+    "eta": 30,
+    "indirizzo": {
+        "via": "Via Roma",
+        "citta": "Roma",
+        "CAP": "00100"
+    }
+}
+with open(path, "w") as file:
+    json.dump(dizionario, file, indent=4)  # Serializza il dizionario in un file JSON
+    
 
 
 
