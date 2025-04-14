@@ -57,10 +57,6 @@ for elemento in obj_2 :
 
 
 
-
-
-
-
 #SCRITTURA di un file Json
 with open(path , "w") as file :
     #Il metodo dump permette di scrivere sul Json,

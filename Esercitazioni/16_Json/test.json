@@ -1,0 +1,40 @@
+{
+    "nome": "nome2",
+    "cognome": "cognome1",
+    "eta": 20,
+    "indirizzo": {
+        "via": "via roma",
+        "citta": "Genova"
+    },
+    "num_tel": [
+        {
+            "tipo": "casa",
+            "num": "12345678"
+        },
+        {
+            "tipo": "ufficio",
+            "num": "7891011"
+        },
+        {
+            "tipo": "cellulare",
+            "numero": "12345678"
+        },
+        {
+            "tipo": "cellulare",
+            "numero": "12345678"
+        },
+        {
+            "tipo": "cellulare",
+            "numero": "12345678"
+        },
+        {
+            "tipo": "cellulare",
+            "numero": "12345678"
+        }
+    ],
+    "lingue_parlate": [
+        "italiano",
+        "inglese",
+        "spagnolo"
+    ]
+}
