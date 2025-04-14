@@ -89,7 +89,7 @@ len(frutta)       #Ritorna il numero di elementi della lista
 frutta.append("kiwi")  #Aggiunge un elemento alla lista in ultima posizione
 frutta.extend(["mango","papaya"]) #Aggiunge alla lista gli elementi della lista argomento
 frutta.remove("mela")   #Rimuove un elemento dalla lista ma non suoi duplicati, elimina solo la prima 
-                        #che trova in lista
+                        #che trova in lista, Se non trova l'elemento da eliminare da ValueError
 
 frutta.pop()            #ritorna l'ultimo elemento della lista e lo rimuove dalla lista
 

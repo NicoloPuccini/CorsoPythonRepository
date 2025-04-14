@@ -6,7 +6,7 @@
 # Il blocco except contiene il codice da eseguire quando si verifica un errore 
 #
 #Quando la line nel blocco try esegue la linea che scatena l'errore , va ad eseguire il codice nel blocco except
-#Infine torna nel punto in cui si era scatenato l'errore e riprende ad eseguire da li 
+#Quindi esce dal blocco Try riprende l'esecuzione la riga sotto il blocco Try
 try :
     x = 10/0  #Ovviamente darà errore
 
