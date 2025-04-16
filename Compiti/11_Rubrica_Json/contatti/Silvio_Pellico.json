@@ -1,0 +1,15 @@
+{
+    "nome": "Silvio",
+    "cognome": "Pellico",
+    "telefono": [
+        {
+            "tipo": "casa",
+            "numero": "8888888888"
+        }
+    ],
+    "attivo": false,
+    "attivita": [
+        "musicista"
+    ],
+    "data_di_creazione": "2025-04-16"
+}

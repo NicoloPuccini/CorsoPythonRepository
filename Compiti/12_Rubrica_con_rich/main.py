@@ -20,6 +20,7 @@ path_contacts = "./CorsoPythonRepository\Compiti\\11_Rubrica_Json\contatti"
 error_style = Style(color="red", bold=True )
 submenu_title_style = Style(color = "green" , bold = True , underline = True )
 menu_style = Style(color = "blue" , bold = True)
+gray_style = Style(color = "rgb(153,153,153)" )
 
 #Creo la cartella contatti se non esiste già:
 os.makedirs(path_contacts , exist_ok = True)
@@ -40,7 +41,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
         """
 
         console.print(Panel(menu, title = "* Menu *", style = "bold blue"))
-        in_menu = Prompt.ask("[yellow]Digita il numero dell'operazione che desideri svolgere: [/yellow]" , choices = ["1", "2","3","4","5"] , default = "2")
+        in_menu = Prompt.ask("[yellow]Digita il numero dell'operazione che desideri svolgere: [/yellow]" , choices = ["1", "2","3","4","5"] , default = "4")
         in_menu = int(in_menu)
         if in_menu == 1:
             # Aggiungi un contatto
@@ -111,7 +112,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
             while True :
                 try:
 
-                    in_numero_telefono = Prompt.ask("[yellow]Digita il tipo [/yellow]")
+                    in_numero_telefono = Prompt.ask("[yellow]Digita il numero [/yellow]")
                     if in_numero_telefono == "":
                         in_tel = False
                         break
@@ -133,7 +134,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
         #Inserimento attività
         lista_attivita = []
         while True :
-            in_attivita = input("Digita un'attività o enter per continuare \n")
+            in_attivita = Prompt.ask("[yellow]Digita un'attività o enter per continuare \n[/yellow]")
             if in_attivita == "" :
                 break
             lista_attivita.append(in_attivita)
@@ -160,7 +161,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
         with open(path_to_json,"w") as file :
             json.dump(dizionario , file , indent = 4)
 
-        print("Utente creato con successo\n")
+        console.print("Utente creato con successo\n", style = " i green")
 
 
 
@@ -172,7 +173,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
         #Chiediamo in input nome e cognome del contatto da eliminare
         while True :
             try:
-                in_delete_nome = input("Inserisci il nome del contatto da cancellare : ")
+                in_delete_nome = Prompt.ask("[yellow]Inserisci il nome del contatto da cancellare [/yellow]")
                 if len(in_delete_nome) < 3 :
                     raise ValueError("Error : Nome e Cognome devono avere almeno tre lettere")
                 in_delete_nome = in_delete_nome.strip().lower().capitalize()
@@ -185,7 +186,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
 
         while True :
             try:
-                in_delete_cognome = input("Inserisci il cognome del contatto da cancellare : ")
+                in_delete_cognome = Prompt.ask("[yellow]Inserisci il cognome del contatto da cancellare [/yellow]")
                 if len(in_delete_cognome) < 3 :
                     raise ValueError("Error : Nome e Cognome devono avere almeno tre lettere")
                 in_delete_cognome = in_delete_cognome.strip().lower().capitalize()
@@ -205,11 +206,13 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
         #Se il  file json esiste lo cancello
         try:
             os.remove(path_to_json)
-            print("Utente cancellato con successo\n")
+            console.print("Utente cancellato con successo\n", style = "i green")
         except FileNotFoundError as e :
             print("\n")
             console.print(Panel(f"{e}",style = error_style , title = " ! Error ! "))
             print("\n")
+
+
 
 
     #VISUALIZZA I CONTATTI ATTIVI
@@ -234,17 +237,24 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
                 #Stampo le informazioni contenute nel dizionario ottenuto leggendo il file json
                 if obj :
                     if obj["attivo"] :
-                        print("-"*80)
-                        print(f"Nome : {obj["nome"]}\nCognome : {obj["cognome"]}\n")
+
+                        table_telefono = Table(title = f"{obj["nome"]} {obj["cognome"]}", style=" bold cyan", box = box.SIMPLE)
+                        table_telefono.add_column("Tipo", style= gray_style)
+                        table_telefono.add_column("Numero", style= gray_style)
+
+                        table_attivita = Table( style=" bold green", box = box.SIMPLE)
+                        table_attivita.add_column("Attività", style = gray_style)
+
+
                         for data_tel in obj["telefono"] :
-                            print(f"\nTipo : {data_tel["tipo"]}\nNumero \
-di telefono : {data_tel["numero"]}\n")
+                            table_telefono.add_row(data_tel["tipo"], data_tel["numero"])
+                        console.print(table_telefono)
 
-                        print("\nAttività : ")
                         for data_attivita in obj["attivita"] :
-                            print(data_attivita)
+                            table_attivita.add_row(data_attivita)
+                        console.print(table_attivita)
 
-                        print(f"\nData di creazione : {obj["data_di_creazione"]}")
+                        console.print(f"\nData di creazione : {obj["data_di_creazione"]}", style = gray_style)
 
 
 
@@ -257,7 +267,7 @@ di telefono : {data_tel["numero"]}\n")
         #Chiediamo in input nome e cognome del contatto da eliminare
         while True :
             try:
-                to_modify_nome = input("Inserisci il nome del contatto da modificare : ")
+                to_modify_nome = Prompt.ask("[yellow]Inserisci il nome del contatto da modificare [/yellow]")
                 if len(to_modify_nome) < 3 :
                     raise ValueError("Error : Nome e Cognome devono avere almeno tre lettere")
                 to_modify_nome = to_modify_nome.strip().lower().capitalize()
@@ -270,7 +280,7 @@ di telefono : {data_tel["numero"]}\n")
 
         while True :
             try:
-                to_modify_cognome = input("Inserisci il cognome del contatto da modificare : ")
+                to_modify_cognome = Prompt.ask("[yellow]Inserisci il cognome del contatto da modificare [/yellow]")
                 if len(to_modify_cognome) < 3 :
                     raise ValueError("Error : Nome e Cognome devono avere almeno tre lettere")
                 to_modify_cognome = to_modify_cognome.strip().lower().capitalize()
@@ -286,10 +296,10 @@ di telefono : {data_tel["numero"]}\n")
         no_space_cognome = to_modify_cognome.replace(" ","_")
         nome_json = f"{no_space_nome}_{no_space_cognome}.json"
         path_to_json = os.path.join(path_contacts , nome_json)
-        
+
         #Se il  file json esiste lo modifico
         if not os.path.exists(path_to_json) :
-            print("File json non trovato")
+            console.print("File json non trovato", style = error_style)
         else :
             #Se il  file json esiste lo cancello
             try:
@@ -303,7 +313,7 @@ di telefono : {data_tel["numero"]}\n")
             #copia da aggiungi contatto
             while True :
                 try :
-                    in_nome = input("Digita il nome : ")
+                    in_nome = Prompt.ask("[yellow]Digita il nome [/yellow]")
                     if len(in_nome) < 3 :
                         raise ValueError("Error : Nome e Cognome devono avere almeno tre lettere")
                     in_nome = in_nome.strip().lower().capitalize()
@@ -317,7 +327,7 @@ di telefono : {data_tel["numero"]}\n")
 
             while True :
                 try:
-                    in_cognome = input("Digita il cognome : ")
+                    in_cognome = Prompt.ask("[yellow]Digita il cognome [/yellow]")
                     if len(in_cognome) < 3 :
                         raise ValueError("Error : Nome e Cognome devono avere almeno tre lettere")
                     in_cognome = in_cognome.strip().lower().capitalize()
@@ -333,9 +343,9 @@ di telefono : {data_tel["numero"]}\n")
             lista_numeri_telefono = []
             in_tel = True
             while in_tel :
-                print("Aggiungi un numero di telefono oppure continua premendo invio")
+                console.print("[yellow]Aggiungi un numero di telefono oppure continua premendo invio[/yellow]")
 
-                in_tipo = input("Digita il tipo : ")
+                in_tipo = Prompt.ask("[yellow]Digita il tipo [/yellow]")
                 if in_tipo == "" :
                     in_tel = False
                     break
@@ -343,7 +353,7 @@ di telefono : {data_tel["numero"]}\n")
                 while True :
                     try:
 
-                        in_numero_telefono = input("Digita il numero : ")
+                        in_numero_telefono = Prompt.ask("[yellow]Digita il numero [/yellow]")
                         if in_numero_telefono == "":
                             in_tel = False
                             break
@@ -361,11 +371,11 @@ di telefono : {data_tel["numero"]}\n")
             
             #Inserimento attivo
             is_attivo = Confirm.ask("[yellow]E' attivo ?  [/yellow]")
-            
+
             #Inserimento attività
             lista_attivita = []
             while True :
-                in_attivita = input("Digita un'attività o enter per continuare \n")
+                in_attivita = Prompt.ask("[yellow]Digita un'attività o enter per continuare \n[/yellow]")
                 if in_attivita == "" :
                     break
                 lista_attivita.append(in_attivita)
@@ -392,6 +402,6 @@ di telefono : {data_tel["numero"]}\n")
             with open(path_to_json,"w") as file :
                 json.dump(dizionario , file , indent = 4)
 
-            print("Utente modificato con successo con successo\n")
+            console.print("Utente modificato con successo con successo\n" , style="i green")
 
 
