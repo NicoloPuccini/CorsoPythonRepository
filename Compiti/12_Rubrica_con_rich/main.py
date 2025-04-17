@@ -21,6 +21,7 @@ error_style = Style(color="red", bold=True )
 submenu_title_style = Style(color = "green" , bold = True , underline = True )
 menu_style = Style(color = "blue" , bold = True)
 gray_style = Style(color = "rgb(153,153,153)" )
+ask_color = "rgb(227,172,52)"
 
 #Creo la cartella contatti se non esiste già:
 os.makedirs(path_contacts , exist_ok = True)
@@ -40,8 +41,10 @@ while  in_menu != 5 :
 un contatto\n4-Visualizza i contatti attivi\n5-Exit
         """
 
-        console.print(Panel(menu, title = "* Menu *", style = "bold blue"))
-        in_menu = Prompt.ask("[yellow]Digita il numero dell'operazione che desideri svolgere: [/yellow]" , choices = ["1", "2","3","4","5"] , default = "4")
+        console.print(Panel(menu, title = "[rgb(197,245,255)]* Menu *", \
+style = "rgb(197,245,255)" , border_style = "bold blue", expand=False))
+        in_menu = Prompt.ask(f"[{ask_color}]Digita il numero dell'operazione che desideri svolgere: [/{ask_color}]"\
+, choices = ["1", "2","3","4","5"] , default = "4")
         in_menu = int(in_menu)
         if in_menu == 1:
             # Aggiungi un contatto
@@ -72,7 +75,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
         #Inserimento degli input
         while True :
             try :
-                in_nome = Prompt.ask("[yellow]Digita il nome [/yellow]")
+                in_nome = Prompt.ask(f"[{ask_color}]Digita il nome [/{ask_color}]")
                 if len(in_nome) < 3 :
                     raise ValueError("Error : Nome e Cognome devono avere almeno tre lettere")
                 in_nome = in_nome.strip().lower().capitalize()
@@ -86,7 +89,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
 
         while True :
             try:
-                in_cognome = Prompt.ask("[yellow]Digita il cognome [/yellow]")
+                in_cognome = Prompt.ask(f"[{ask_color}]Digita il cognome [/{ask_color}]")
                 if len(in_cognome) < 3 :
                     raise ValueError("Error : Nome e Cognome devono avere almeno tre lettere")
                 in_cognome = in_cognome.strip().lower().capitalize()
@@ -102,9 +105,9 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
         lista_numeri_telefono = []
         in_tel = True
         while in_tel :
-            console.print("[yellow]Aggiungi un numero di telefono oppure continua premendo invio[/yellow]")
+            console.print(f"[{ask_color}]Aggiungi un numero di telefono oppure continua premendo invio[/{ask_color}]")
 
-            in_tipo = Prompt.ask("[yellow]Digita il tipo [/yellow]")
+            in_tipo = Prompt.ask(f"[{ask_color}]Digita il tipo [/{ask_color}]")
             if in_tipo == "" :
                 in_tel = False
                 break
@@ -112,7 +115,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
             while True :
                 try:
 
-                    in_numero_telefono = Prompt.ask("[yellow]Digita il numero [/yellow]")
+                    in_numero_telefono = Prompt.ask(f"[{ask_color}]Digita il numero [/{ask_color}]")
                     if in_numero_telefono == "":
                         in_tel = False
                         break
@@ -129,12 +132,12 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
                 lista_numeri_telefono.append(in_telefono)
         
         #Inserimento attivo
-        is_attivo = Confirm.ask("[yellow]E' attivo ?  [/yellow]")
+        is_attivo = Confirm.ask(f"[{ask_color}]E' attivo ?  [/{ask_color}]")
 
         #Inserimento attività
         lista_attivita = []
         while True :
-            in_attivita = Prompt.ask("[yellow]Digita un'attività o enter per continuare \n[/yellow]")
+            in_attivita = Prompt.ask(f"[{ask_color}]Digita un'attività o enter per continuare \n[/{ask_color}]")
             if in_attivita == "" :
                 break
             lista_attivita.append(in_attivita)
@@ -173,7 +176,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
         #Chiediamo in input nome e cognome del contatto da eliminare
         while True :
             try:
-                in_delete_nome = Prompt.ask("[yellow]Inserisci il nome del contatto da cancellare [/yellow]")
+                in_delete_nome = Prompt.ask(f"[{ask_color}]Inserisci il nome del contatto da cancellare [/{ask_color}]")
                 if len(in_delete_nome) < 3 :
                     raise ValueError("Error : Nome e Cognome devono avere almeno tre lettere")
                 in_delete_nome = in_delete_nome.strip().lower().capitalize()
@@ -186,7 +189,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
 
         while True :
             try:
-                in_delete_cognome = Prompt.ask("[yellow]Inserisci il cognome del contatto da cancellare [/yellow]")
+                in_delete_cognome = Prompt.ask(f"[{ask_color}]Inserisci il cognome del contatto da cancellare [/{ask_color}]")
                 if len(in_delete_cognome) < 3 :
                     raise ValueError("Error : Nome e Cognome devono avere almeno tre lettere")
                 in_delete_cognome = in_delete_cognome.strip().lower().capitalize()
@@ -238,11 +241,11 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
                 if obj :
                     if obj["attivo"] :
 
-                        table_telefono = Table(title = f"{obj["nome"]} {obj["cognome"]}", style=" bold cyan", box = box.SIMPLE)
+                        table_telefono = Table(title = f"[rgb(240,180,244)]{obj["nome"]} {obj["cognome"]}", style=" bold cyan", box = box.HEAVY_EDGE)
                         table_telefono.add_column("Tipo", style= gray_style)
                         table_telefono.add_column("Numero", style= gray_style)
 
-                        table_attivita = Table( style=" bold green", box = box.SIMPLE)
+                        table_attivita = Table( style=" bold green", box = box.HEAVY_EDGE)
                         table_attivita.add_column("Attività", style = gray_style)
 
 
@@ -250,11 +253,12 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
                             table_telefono.add_row(data_tel["tipo"], data_tel["numero"])
                         console.print(table_telefono)
 
-                        for data_attivita in obj["attivita"] :
-                            table_attivita.add_row(data_attivita)
-                        console.print(table_attivita)
+                        if len(obj["attivita"]) != 0 :
+                            for data_attivita in obj["attivita"] :
+                                table_attivita.add_row(data_attivita)
+                            console.print(table_attivita)
 
-                        console.print(f"\nData di creazione : {obj["data_di_creazione"]}", style = gray_style)
+                        console.print(f"\nData di creazione : {obj["data_di_creazione"]}\n\n")
 
 
 
@@ -267,7 +271,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
         #Chiediamo in input nome e cognome del contatto da eliminare
         while True :
             try:
-                to_modify_nome = Prompt.ask("[yellow]Inserisci il nome del contatto da modificare [/yellow]")
+                to_modify_nome = Prompt.ask(f"[{ask_color}]Inserisci il nome del contatto da modificare [/{ask_color}]")
                 if len(to_modify_nome) < 3 :
                     raise ValueError("Error : Nome e Cognome devono avere almeno tre lettere")
                 to_modify_nome = to_modify_nome.strip().lower().capitalize()
@@ -280,7 +284,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
 
         while True :
             try:
-                to_modify_cognome = Prompt.ask("[yellow]Inserisci il cognome del contatto da modificare [/yellow]")
+                to_modify_cognome = Prompt.ask(f"[{ask_color}]Inserisci il cognome del contatto da modificare [/{ask_color}]")
                 if len(to_modify_cognome) < 3 :
                     raise ValueError("Error : Nome e Cognome devono avere almeno tre lettere")
                 to_modify_cognome = to_modify_cognome.strip().lower().capitalize()
@@ -313,7 +317,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
             #copia da aggiungi contatto
             while True :
                 try :
-                    in_nome = Prompt.ask("[yellow]Digita il nome [/yellow]")
+                    in_nome = Prompt.ask(f"[{ask_color}]Digita il nome [/{ask_color}]")
                     if len(in_nome) < 3 :
                         raise ValueError("Error : Nome e Cognome devono avere almeno tre lettere")
                     in_nome = in_nome.strip().lower().capitalize()
@@ -327,7 +331,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
 
             while True :
                 try:
-                    in_cognome = Prompt.ask("[yellow]Digita il cognome [/yellow]")
+                    in_cognome = Prompt.ask(f"[{ask_color}]Digita il cognome [/{ask_color}]")
                     if len(in_cognome) < 3 :
                         raise ValueError("Error : Nome e Cognome devono avere almeno tre lettere")
                     in_cognome = in_cognome.strip().lower().capitalize()
@@ -343,9 +347,9 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
             lista_numeri_telefono = []
             in_tel = True
             while in_tel :
-                console.print("[yellow]Aggiungi un numero di telefono oppure continua premendo invio[/yellow]")
+                console.print(f"[{ask_color}]Aggiungi un numero di telefono oppure continua premendo invio[/{ask_color}]")
 
-                in_tipo = Prompt.ask("[yellow]Digita il tipo [/yellow]")
+                in_tipo = Prompt.ask(f"[{ask_color}]Digita il tipo [/{ask_color}]")
                 if in_tipo == "" :
                     in_tel = False
                     break
@@ -353,7 +357,7 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
                 while True :
                     try:
 
-                        in_numero_telefono = Prompt.ask("[yellow]Digita il numero [/yellow]")
+                        in_numero_telefono = Prompt.ask(f"[{ask_color}]Digita il numero [/{ask_color}]")
                         if in_numero_telefono == "":
                             in_tel = False
                             break
@@ -370,12 +374,12 @@ un contatto\n4-Visualizza i contatti attivi\n5-Exit
                     lista_numeri_telefono.append(in_telefono)
             
             #Inserimento attivo
-            is_attivo = Confirm.ask("[yellow]E' attivo ?  [/yellow]")
+            is_attivo = Confirm.ask(f"[{ask_color}]E' attivo ?  [/{ask_color}]")
 
             #Inserimento attività
             lista_attivita = []
             while True :
-                in_attivita = Prompt.ask("[yellow]Digita un'attività o enter per continuare \n[/yellow]")
+                in_attivita = Prompt.ask(f"[{ask_color}]Digita un'attività o enter per continuare \n[/{ask_color}]")
                 if in_attivita == "" :
                     break
                 lista_attivita.append(in_attivita)

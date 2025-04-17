@@ -9,6 +9,10 @@ from rich import print
 from time import sleep
 from rich.progress import Progress, SpinnerColumn,TextColumn
 
+
+#Il sito ufficiale della documentazione di rich è (https://rich.readthedocs.io/en/stable)
+
+
 console = Console()
 
 #Puoi usare l'rgb
@@ -54,21 +58,48 @@ console.print("Danger, Will Robinson!", style=danger_style)
 #Stampa un messaggio con un pannello
 console.print(Panel("Contenuto del panel", title="Titolo" , border_style = "blue"))
 
+#Stampa la variabile dentro il Panel
 menu = """
 [1] Visualizza contatti
 [2] Aggiungi contatto
 [3] Modifica contatto
 """
-console.print(Panel(menu, title = "Menu", subtitle="Subtitle",style = "bold blue"))
+console.print(Panel(menu, title = "[red]Menu", subtitle="Subtitle",style = "bold blue"))
 
+# expand=False impedisce che il panel si allarghi a tutto il terminale ma si aggiusti sul contenuto 
+console.print(Panel("Contenuto del panel", title="[red]Titolo" , border_style = "blue", expand=False))
+# oppure si può usare il metodo fit 
+print(Panel.fit("Hello, [red]World!"))
+
+#border style e  padding
+print(Panel("Hello, [red]World!", border_style= "yellow" ,padding=15 , expand=False , title="[green]Io sto a destra" , title_align= "right")) #il padding è verticale
 
 
 
 #TABLE
 #Stampa una tabella
+
+#default : box.HEAVY
+table = Table(title="Titolo")
+table.add_column("Nome", style="cyan")
+table.add_column("Cognome", style="magenta")
+table.add_row("nome","cognome","1256395")
+table.add_row("nome","cognome","1256395")
+console.print(table)
+
+#box.SIMPLE
 table = Table(title="Titolo", box=box.SIMPLE) 
 table.add_column("Nome", style="cyan")
 table.add_column("Cognome", style="magenta")
+table.add_row("nome","cognome","1256395")
+table.add_row("nome","cognome","1256395")
+console.print(table)
+
+#box.HEAVY
+table = Table(title="Titolo", box=box.HEAVY) 
+table.add_column("Nome", style="cyan")
+table.add_column("Cognome", style="magenta")
+table.add_row("nome","cognome","1256395")
 table.add_row("nome","cognome","1256395")
 console.print(table)
 
@@ -90,11 +121,41 @@ m18 = Confirm.ask("[red]Sei maggiore di 18 anni ?[/red]")     # Aggiungi import 
 print(f"Accesso {"consentito" if m18 else "negato"}")
 
 
-#Spinner
+#SPINNERS
 with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}")) as progress :
     task = progress.add_task("[cyan]Caricamento in corso ...[/cyan]", total = None)
     sleep(2)
     progress.remove_task(task)
 
 
-#Il sito ufficiale della documentazione di rich è (https://rich.readthedocs.io/en/stable)
+#TREES
+#Richiede di importare:
+from rich.tree import Tree
+
+tree = Tree("Creato")
+print(tree)
+
+plant_tree = tree.add("Piante", style="bold green")  #Per muovermi sui livelli basta inizializzare variabili 
+                                                     #con dentro i sottoalberi 
+animal_tree = tree.add("Animali",style="bold red")
+
+plant_tree.add("Conifere")
+alghe_tree = plant_tree.add("Alghe")
+alghe_tree.add("Combu")
+alghe_tree.add("Poseidonia")
+
+#Creo il primo livello di Animal
+mamal_tree = animal_tree.add("Mammiferi")
+animal_tree.add("Rettili")
+animal_tree.add("Pesci")
+animal_tree.add("Anfibi")
+
+#Posso anche fare add dietro add  ecc ecc in tal caso creo un percorso 
+animal_tree.add("Uccelli").add("Corvidi").add("Corvo", style="black on white")
+
+#terzo livello 
+mamal_tree.add("Canidi")
+mamal_tree.add("Felini")
+mamal_tree.add("Cetacei")
+print(tree)
+
