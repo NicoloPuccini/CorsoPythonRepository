@@ -7,7 +7,8 @@ from rich import print
 
 #Spinner
 from time import sleep
-from rich.progress import Progress, SpinnerColumn,TextColumn
+from rich.progress import Progress, SpinnerColumn,TextColumn ,BarColumn, TaskProgressColumn ,TimeRemainingColumn
+from rich.table import Column
 
 
 #Il sito ufficiale della documentazione di rich è (https://rich.readthedocs.io/en/stable)
@@ -121,11 +122,83 @@ m18 = Confirm.ask("[red]Sei maggiore di 18 anni ?[/red]")     # Aggiungi import 
 print(f"Accesso {"consentito" if m18 else "negato"}")
 
 
+
+
+
+
 #SPINNERS
+#Spinner
+from time import sleep
+from rich.progress import Progress, SpinnerColumn,TextColumn ,BarColumn, TaskProgressColumn ,TimeRemainingColumn
+from rich.table import Column
+
+print("SPINNERS :")
+#Un oggetto progres ti permette di visualizzare delle animazioni continue in un lasso di tempo
+#SpinnerColumn : ti permette di mettere uno spinner per far vedere che qualcosa sta macinando
+#TextColumn : Ti fa aggiungere un testo
+#BarColumn : Ti permette di inserire una barra di progressione 
+
 with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}")) as progress :
     task = progress.add_task("[cyan]Caricamento in corso ...[/cyan]", total = None)
     sleep(2)
     progress.remove_task(task)
+
+#Di spinner così con le immaginette ne esistono tanti :
+#Stili di spinners che puoi provare : line dots2 bouncingBar monkey earth aesthetic weather
+with Progress(SpinnerColumn(spinner_name="line"), TextColumn("[progress.description]{task.description}")) as progress :
+    task = progress.add_task("[cyan]Caricamento in corso ...[/cyan]", total = None)
+    sleep(2)
+    progress.remove_task(task)
+
+with Progress(SpinnerColumn(spinner_name="dots2"), TextColumn("[progress.description]{task.description}")) as progress :
+    task = progress.add_task("[cyan]Caricamento in corso ...[/cyan]", total = None)
+    sleep(2)
+    progress.remove_task(task)
+with Progress(SpinnerColumn(spinner_name="monkey"), TextColumn("[progress.description]{task.description}")) as progress :
+    task = progress.add_task("[cyan]Caricamento in corso ...[/cyan]", total = None)
+    sleep(2)
+    progress.remove_task(task)
+
+
+
+
+#Barre di caricamento
+with Progress() as progress:
+    #il metodo add task aggiunge una barra che si carica in relazione al metodo update
+    task1 = progress.add_task("[red]Downloading...", total=1000)
+    task2 = progress.add_task("[green]Processing...", total=1000)
+    task3 = progress.add_task("[cyan]Cooking...", total=1000)
+
+    while not progress.finished:
+        progress.update(task1, advance=4)
+        progress.update(task2, advance=5)
+        progress.update(task3, advance=10)
+        sleep(0.02)
+
+#Columns
+text_column = TextColumn("{task.description}", table_column=Column(ratio=1))       #per la colonna di testo
+bar_column = BarColumn(bar_width=None, table_column=Column(ratio=2))     #Per la barra di progresso
+progress = Progress(text_column, bar_column, expand=False) #Creo l'oggetto Progress(con le colonne come parametri)
+
+with progress:
+    for n in progress.track(range(100)):
+        progress.print(n)
+        sleep(0.1)
+
+
+#Barra di progresso per quando leggi da json
+import json
+import rich.progress
+"""
+with rich.progress.open("data.json", "rb") as file:
+    data = json.load(file)
+print(data)
+"""
+print("\n\n")
+
+
+
+
 
 
 #TREES

@@ -10,6 +10,9 @@ from rich.table import Table
 from rich import box
 from rich import print
 from rich.style import Style
+from rich.progress import Progress, SpinnerColumn,TextColumn ,BarColumn, TaskProgressColumn ,TimeRemainingColumn
+from time import sleep
+
 
 
 
@@ -161,8 +164,9 @@ style = "rgb(197,245,255)" , border_style = "bold blue", expand=False))
         nome_json = f"{no_space_nome}_{no_space_cognome}.json"
         path_to_json = os.path.join(path_contacts , nome_json)
 
-        with open(path_to_json,"w") as file :
+        with open(path_to_json,"wb") as file :
             json.dump(dizionario , file , indent = 4)
+            
 
         console.print("Utente creato con successo\n", style = " i green")
 
@@ -222,44 +226,43 @@ style = "rgb(197,245,255)" , border_style = "bold blue", expand=False))
     if in_menu == 4 :
         console.print("\nVISUALIZZA I CONTATTI ATTIVI", style = submenu_title_style)
         list_in_contacts = os.listdir(path_contacts)
+
+
         for file in list_in_contacts :
-            if os.path.splitext(file)[1] == ".json" :
+                if os.path.splitext(file)[1] == ".json" :
 
-                #Ricavo il path al json
-                file_path = os.path.join(path_contacts , file)
+                    #Ricavo il path al json
+                    file_path = os.path.join(path_contacts , file)
 
-                #Leggo il contenuto dei file json
-                try:
-                    with open (file_path , "r") as file:
-                        obj = json.load(file)
-                except Exception as e :
-                    print("\n")
-                    console.print(Panel(f"{e}",style = error_style , title = " ! Error ! "))
-                    print("\n")
+                    #Leggo il contenuto dei file json
+                    try:
+                        with open (file_path , "rb") as file:
+                            obj = json.load(file)
+                    except Exception as e :
+                        print("\n")
+                        console.print(Panel(f"{e}",style = error_style , title = " ! Error ! "))
+                        print("\n")
 
-                #Stampo le informazioni contenute nel dizionario ottenuto leggendo il file json
-                if obj :
-                    if obj["attivo"] :
+                    #Stampo le informazioni contenute nel dizionario ottenuto leggendo il file json
+                    if obj :
+                        if obj["attivo"] :
+                            table_telefono = Table(title = f"[rgb(240,180,244)]{obj["nome"]} {obj["cognome"]}", style=" bold cyan", box = box.HEAVY_EDGE)
+                            table_telefono.add_column("Tipo", style= gray_style)
+                            table_telefono.add_column("Numero", style= gray_style)
 
-                        table_telefono = Table(title = f"[rgb(240,180,244)]{obj["nome"]} {obj["cognome"]}", style=" bold cyan", box = box.HEAVY_EDGE)
-                        table_telefono.add_column("Tipo", style= gray_style)
-                        table_telefono.add_column("Numero", style= gray_style)
+                            table_attivita = Table( style=" bold green", box = box.HEAVY_EDGE)
+                            table_attivita.add_column("Attività", style = gray_style)
 
-                        table_attivita = Table( style=" bold green", box = box.HEAVY_EDGE)
-                        table_attivita.add_column("Attività", style = gray_style)
+                            for data_tel in obj["telefono"] :
+                                table_telefono.add_row(data_tel["tipo"], data_tel["numero"])
+                            console.print(table_telefono)
 
+                            if len(obj["attivita"]) != 0 :
+                                for data_attivita in obj["attivita"] :
+                                    table_attivita.add_row(data_attivita)
+                                console.print(table_attivita)
 
-                        for data_tel in obj["telefono"] :
-                            table_telefono.add_row(data_tel["tipo"], data_tel["numero"])
-                        console.print(table_telefono)
-
-                        if len(obj["attivita"]) != 0 :
-                            for data_attivita in obj["attivita"] :
-                                table_attivita.add_row(data_attivita)
-                            console.print(table_attivita)
-
-                        console.print(f"\nData di creazione : {obj["data_di_creazione"]}\n\n")
-
+                            console.print(f"\nData di creazione : {obj["data_di_creazione"]}\n")
 
 
 
