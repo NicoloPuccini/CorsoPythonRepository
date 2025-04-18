@@ -16,13 +16,12 @@ def calcolatrice (num1, num2, operazione):
             return(ans)
         elif operation =='/':
             ans = num_1 / num_2
-            if num_2 == 0:
-                raise ValueError("Its not possible divide by 0\n")
-            else:
-                return(ans)
+            return(ans)
         else:
             raise ValueError("Operation must be + - * / \n")
     except ValueError as e :
+        return e
+    except ZeroDivisionError as e :
         return e
 
 
@@ -40,8 +39,9 @@ while True :
     operation = input("che operazione vuoi fare ? digita: + - * / \n")
 
     ans = calcolatrice(num_1,num_2,operation)
-    if type(ans)== str:
-        print(ans)
+    print(type(ans))
+    if type(ans) == ValueError or  type(ans) == ZeroDivisionError :
+        print(f"Error : {ans}")
     else:
         print(f"Il risultato è : {ans}")
 
