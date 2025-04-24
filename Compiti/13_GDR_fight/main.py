@@ -8,6 +8,7 @@ class Personaggio :
         self.attacco_min = 10
         self.attacco_max = 20
         self.storico_danni_subiti = []
+        self.inventario = []
 
     def attacca(self,bersaglio):
         danno = random.randint(self.attacco_min,self.attacco_max)
@@ -36,6 +37,16 @@ class Personaggio :
     def regen_post_duello(self):
         cura = round(self.salute*30/100)
         self.recupero_hp(cura)
+
+    def usa_oggetto(self,nome_oggetto):
+        for item in self.inventario:
+            if item.nome == nome_oggetto:
+                print(f"{self.nome} usa un {item.nome}")
+                item.usa(self)
+                self.inventario.remove(item)
+                return
+            print("Oggetto non presente nell'inventario")
+
 
 class Mago (Personaggio):   #Eredita da personaggio
     def __init__(self,nome):
@@ -84,11 +95,23 @@ class Ladro (Personaggio) :
         cura = random.randint(10,40)
         self.recupero_hp(cura)
 
+class Item :
+    #Costruttore:
+    def __init__(self,nome,effetto,valore):
+        self.nome = nome
+        self.effetto = effetto
+        self.valore = valore
+        self.usato = False
+    
+    def usa(self, utilizzatore):
+        utilizzatore.recupero_hp(self.valore)
+        self.usato = True
+
+
 
 # Funzione senza parametri: stampa un messaggio di benvenuto
 def mostra_benvenuto():
     print("Benvenuto nel gioco di combattimento!")  # Non prende input, non restituisce nulla. Serve solo a stampare testo
-
 
 
 
@@ -151,8 +174,17 @@ def gioca_torneo():
                 if len (nemici)==0 :
                     win_torney = True
 
+                #Sconfitto un nemico il personaggio vince una pozione
+                pozione = Item("Pozione gialla", "cura" , 23)
+                giocatore.inventario.append(pozione)
+                print(f"{giocatore.nome} ha ottenuto {pozione.nome}")
+                print(giocatore.inventario)
+
+                #Il giocatore beve la pozione dall'inventario
+                giocatore.usa_oggetto("Pozione gialla")
+
                 #recupero salute del 30% quando si vince un duello
-                giocatore.regen_post_duello()
+                #giocatore.regen_post_duello()
 
                 break  # esci dal ciclo nel caso di vittoria
 
