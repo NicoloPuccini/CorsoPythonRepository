@@ -33,7 +33,7 @@ print("-"*50)
 partecipanti= ["Tizio","Caio","Giulio","Cesare","Bruto","Cassio","Tullio","Cicerone","Giovanni"]
 n_squadre = int(input("inserisci il numero di squadre"))
 n_partecipanti= len(partecipanti)
-squadre = [[] for _ in range(n_squadre)] #array di liste
+squadre = [[] for _ in range(n_squadre)] #creo liste nella lista
 yn = True
 while yn == True :
     curr_sqad = 0

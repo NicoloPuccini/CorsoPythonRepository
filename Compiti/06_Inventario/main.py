@@ -1,7 +1,21 @@
-def add_to_inventory(i_inventario,i_new_price, i_new_quantity) :
-    i_inventario[new_article] = {"price" : i_new_price, "quantity" : i_new_quantity }
+def add_to_inventory(i_inventario, i_new_article ,i_new_price, i_new_quantity) :
+    try:
+        dict(i_inventario)
+        i_new_article = str(i_new_article)
+        i_new_price = int(i_new_price)
+        i_new_quantity = int(i_new_quantity)
+    except ValueError as e :
+        return e
+    i_inventario[i_new_article] = {"price" : i_new_price, "quantity" : i_new_quantity }
+    
 
 def mod_to_inventory(i_inventario,i_mod_article, i_mod_quantity) :
+    try:
+        dict(i_inventario)
+        i_mod_article = str(i_mod_article)
+        i_mod_quantity = int(i_mod_quantity)
+    except ValueError as e :
+        return e
     i_inventario[i_mod_article] ["quantity"] = i_mod_quantity
 
 
@@ -25,7 +39,9 @@ while True:
             continue
         new_price = input("Inserisci prezzo unitario")
         new_quantity = input("In che quantità ? ")
-        add_to_inventory(inventory,new_price,new_quantity)
+        if add_to_inventory(inventory,new_article ,new_price,new_quantity):
+           print(add_to_inventory(inventory,new_article ,new_price,new_quantity))
+
 
 
     if command == "quantity" or command == "Quantity" :
@@ -33,7 +49,8 @@ while True:
         mod_article = input("Quale articolo vuoi modificare ? ")
         if mod_article in inventory.keys() :
             mod_quantity = input("In che quantità ? ")
-            mod_to_inventory(inventory,mod_article,mod_quantity)
+            if mod_to_inventory(inventory,mod_article,mod_quantity):
+                print(mod_to_inventory(inventory,mod_article,mod_quantity))
         else:
             print("Articolo non presente nell'inventario")
             continue
