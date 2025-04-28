@@ -12,6 +12,10 @@ class Personaggio :
 
     def attacca(self,bersaglio):
         danno = random.randint(self.attacco_min,self.attacco_max)
+        #Critico : se esce un 20 raddoppi il danno
+        if random.randint(1,21)==20 :
+            danno *=2
+            print("Hai Crittato !")
         print(f"{self.nome} attacca {bersaglio.nome} per {danno} punti!\n")
         bersaglio.subisci_danno(danno)
 
@@ -38,14 +42,28 @@ class Personaggio :
         cura = round(self.salute*30/100)
         self.recupero_hp(cura)
 
-    def usa_oggetto(self,nome_oggetto):
-        for item in self.inventario:
-            if item.nome == nome_oggetto:
-                print(f"{self.nome} usa un {item.nome}")
-                item.usa(self)
-                self.inventario.remove(item)
-                return
+    #Permette al personaggio di usare oggetti di classe Item presenti nell'inventario
+    def usa_oggetto(self,oggetto, bersaglio=None ):    #Aggiungiamo un campo bersaglio e gli diamo valore di default nullo
+                                                            #L'inizializzazione del bersaglio in questo modo è opzionale
+        if oggetto in self.inventario:
+            print(f"{self.nome} usa un {oggetto.nome}")
+            try:
+                risultato = oggetto.usa(self if bersaglio == None else bersaglio)
+                self.inventario.remove(oggetto)
+                return risultato
+            except NotImplementedError as e :
+                print(f"Errore : {e}")
             print("Oggetto non presente nell'inventario")
+    
+
+    def saccheggia_nemico(self, nemico):
+        #Sconfitto un nemico ti appropri del suo inventario
+        #Unisco l'inventario del nemico sconfitto all'inventario del giocatore
+        self.inventario=[*self.inventario,*nemico.inventario]
+        print(f"{self.nome} ha ottenuto {nemico.inventario}")
+        print(self.inventario)
+        #recupero salute del 30% quando si vince un duello
+        #giocatore.regen_post_duello()
 
 
 class Mago (Personaggio):   #Eredita da personaggio
@@ -57,6 +75,10 @@ class Mago (Personaggio):   #Eredita da personaggio
     
     def attacca(self,bersaglio):
         danno = random.randint(15,30)
+         #Critico : se esce un 20 raddoppi il danno
+        if random.randint(1,21)==20 :
+            danno *=2
+            print("Hai Crittato !")
         print(f"{self.nome} lancia una palla di fuoco su {bersaglio.nome} per {danno} !")
         bersaglio.subisci_danno(danno)
 
@@ -71,6 +93,10 @@ class Guerriero (Personaggio) :
 
     def attacca(self, bersaglio) :
         danno = random.randint(self.attacco_min + 15, self.attacco_max +20)
+         #Critico : se esce un 20 raddoppi il danno
+        if random.randint(1,21)==20 :
+            danno *=2
+            print("Hai Crittato !")
         print(f"{self.nome} colpisce {bersaglio.nome} con la spada per {danno} !")
         bersaglio.subisci_danno(danno)
 
@@ -88,6 +114,10 @@ class Ladro (Personaggio) :
 
     def attacca(self,bersaglio):
         danno = random.randint(0,self.attacco_max+40)
+        #Critico : se esce un 20 raddoppi il danno
+        if random.randint(1,21)==20 :
+            danno *=2
+            print("Hai Crittato !")
         print(f"{self.nome} pugnala {bersaglio.nome} per {danno} !")
         bersaglio.subisci_danno(danno)
 
@@ -102,10 +132,38 @@ class Item :
         self.effetto = effetto
         self.valore = valore
         self.usato = False
-    
-    def usa(self, utilizzatore):
-        utilizzatore.recupero_hp(self.valore)
+
+    def usa(self, bersaglio):
+            raise NotImplementedError("Questo metodo deve subire un override , questa classe è abstract")
+        #Si usa not implemented error quando un oggetto non ha un effetto
+        #definito , nel nostro caso object è una classe abstract
+
+
+class PozioneGuarigione (Item):
+    def __init__(self):
+        super().__init__("Pozione curativa","cura",30)
+        
+
+    def usa(self, bersaglio):
+        bersaglio.recupero_hp(self.valore)
         self.usato = True
+
+class Bomba (Item):
+    def __init__(self):
+        super().__init__("Bomba", "esplode", 200)
+
+    def usa (self, bersaglio):
+        print(f"La bomba esplode infliggendo a {bersaglio.nome} {self.valore} danni")
+        bersaglio.subisci_danno(self.valore)
+
+class PozioneAttacco (Item):
+    def __init__(self):
+        super().__init__("Pozione della furia", "boost", 40)
+
+    def usa (self,bersaglio):
+        print(f"{bersaglio.nome} è piu potente")
+        bersaglio.attacco_max += self.valore
+
 
 
 
@@ -113,6 +171,17 @@ class Item :
 def mostra_benvenuto():
     print("Benvenuto nel gioco di combattimento!")  # Non prende input, non restituisce nulla. Serve solo a stampare testo
 
+def avversario_sconfitto(nemico,nemici):
+    if nemico.sconfitto() :
+        print("Hai vinto il duello!")
+        #elimino il nemico dalla lista di nemici
+        nemici.remove(nemico)
+        #Controllo se si è vinto il torneo
+        if len (nemici)==0 :
+            return 2
+        return True
+    else:
+        return False
 
 
 # loop principale di gioco
@@ -129,6 +198,9 @@ def gioca_torneo():
             classe_sorteggiata = random.choice(tupla_classi)
             #Creo l'istanza del nemico
             nemico = classe_sorteggiata(nome)
+            #Assegno al nemico oggetti(solo bombe)
+            nemico.inventario.append(Bomba())
+            nemico.inventario.append(PozioneGuarigione())
             nemici.append(nemico)
 
     print(f"nemici :  {nemici}")
@@ -158,34 +230,37 @@ def gioca_torneo():
         # definiamo un contatore per i turni
         turno = 1
 
+       
+
         # Ciclo finché qualcuno perde (quando la salute è zero)
         while True:
             print(f"Turno {turno}:")
             print(f"Danni ricevuti dal giocatore : {giocatore.storico_danni_subiti}")
+
+            #Il giocatore usa il primo oggetto che ha in inventario
+            if not len(giocatore.inventario) == 0 :
+                oggetto = giocatore.inventario[0]
+                if isinstance(oggetto,Bomba):
+                    giocatore.usa_oggetto(oggetto, bersaglio=nemico)
+                    #controlliamo se il nemico è morto , puo succedere con la bomba
+                    risultato = avversario_sconfitto(nemico,nemici)
+                    if risultato == 2:
+                        win_torney = True
+                    if risultato:
+                        giocatore.saccheggia_nemico(nemico)
+                        break  # esci dal ciclo nel caso di vittoria
+                else:
+                    giocatore.usa_oggetto(oggetto)
+
             # Attacco del giocatore
             giocatore.attacca(nemico)
 
             # controlla se il nemico è sconfitto
-            if nemico.sconfitto() :
-                print("Hai vinto il duello!")
-                #elimino il nemico dalla lista di nemici
-                nemici.remove(nemico)
-                #Controllo se si è vinto il torneo
-                if len (nemici)==0 :
-                    win_torney = True
-
-                #Sconfitto un nemico il personaggio vince una pozione
-                pozione = Item("Pozione gialla", "cura" , 23)
-                giocatore.inventario.append(pozione)
-                print(f"{giocatore.nome} ha ottenuto {pozione.nome}")
-                print(giocatore.inventario)
-
-                #Il giocatore beve la pozione dall'inventario
-                giocatore.usa_oggetto("Pozione gialla")
-
-                #recupero salute del 30% quando si vince un duello
-                #giocatore.regen_post_duello()
-
+            risultato = avversario_sconfitto(nemico,nemici)
+            if risultato == 2:
+                win_torney = True
+            if risultato:
+                giocatore.saccheggia_nemico(nemico)
                 break  # esci dal ciclo nel caso di vittoria
 
 
