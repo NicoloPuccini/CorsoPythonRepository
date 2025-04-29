@@ -1,0 +1,16 @@
+setup.py
+gioco_torneo.egg-info/PKG-INFO
+gioco_torneo.egg-info/SOURCES.txt
+gioco_torneo.egg-info/dependency_links.txt
+gioco_torneo.egg-info/top_level.txt
+inventario/__init__.py
+inventario/inventario.py
+item/__init__.py
+item/item.py
+personaggio/__init__.py
+personaggio/personaggio.py
+torneo/__init__.py
+torneo/duello.py
+torneo/torneo.py
+util/__init__.py
+util/util.py
