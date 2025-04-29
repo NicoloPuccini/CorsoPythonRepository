@@ -137,9 +137,7 @@ print (f"il voto di matematica è : {voti["matematica"]}") #faccio riferimento a
 
 
 
-
-
-# Set 
+# Set
 
 # (Insiemi non ordinati di elementi non modificabili , gli elementi devono 
 # essere dello stesso tipo, non ammette elementi duplicati)
