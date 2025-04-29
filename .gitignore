@@ -1,5 +1,9 @@
 #pipenv
 /.venv
+#I file .pyc sono precompilazioni dei file .py per velocizzare le prestazioni
+#Possiamo escluderli tranquillamente
+__pycache__/
+*.pyc
 
 #Cartella non versionata
 /non_versionati

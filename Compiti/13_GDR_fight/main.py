@@ -1,4 +1,3 @@
-import random
 from torneo.torneo import Torneo
 
 
