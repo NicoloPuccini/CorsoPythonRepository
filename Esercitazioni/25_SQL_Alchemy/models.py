@@ -14,6 +14,7 @@ import datetime
 #Di solito si chiamano con i nomi delle tabelle che collega:
 Base = declarative_base()
 
+#Non è un entità , quindi non è una classe
 ordine_prodotto = Table(
     "ordine_prodotto", Base.metadata, 
     Column("ordine_id",Integer, ForeignKey("ordini.id"),primary_key=True),
@@ -23,6 +24,7 @@ ordine_prodotto = Table(
 
 class Cliente(Base):
     __tablename__= "clienti" #Indica il nome della tabella nel database
+    #Anche se non passano per il costruttore sono comunque proprietà e sono accessibili direttamente come ogni proprietà
     id = Column(Integer, primary_key=True)
     nome = Column(String, nullable=False)   #Nullable specifica se sono accettati valori vuoti , False rende il campo mandatory
     email = Column(String, unique=True, nullable=False) #Unique fa si che non possano esistere duplicati su questa tabella 

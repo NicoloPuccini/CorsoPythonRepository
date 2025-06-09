@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+    <head>
+        <!--Permette di creare una pagina inserendo solo i blocchi , vedi la pagina login per un esempio di utilizzo-->
+        <title>{% block title %} App Flask{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for ( 'static', filename='style.css')}}">
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        {% include 'header.html'%}
+
+        <!--Blocco che verrà riempito dalla pagina specificano-->
+        {% block content %} App Flask {% endblock %}
+    </body>
+    <footer>
+        <p>&copy; copyright</p>  <!--&copy è l'unicode per fare la c del copyright-->
+        {% include 'footer.html' %}
+    </footer>
+</html>

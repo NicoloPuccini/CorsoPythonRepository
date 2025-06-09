@@ -1,0 +1,39 @@
+<!--
+<!doctype html>
+<html>
+    <head>
+        <title> Login </title>
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    </head>
+    <body>
+        <h1> login </h1>
+        <form method="POST">
+            Nome: <input type="text" name="nome"><br>
+            Email: <input type="email" name="email" placeholder=""><br>
+            Password: <input type="password" name="password"><br>
+            <input type="submit" value="Accedi">
+        </form>
+        {% if messaggio %}
+            <p>{{messaggio}}</p>
+        {% endif %}
+    </body>
+</html>
+-->
+{% extends "base.html" %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+<h1> login </h1>
+        <form method="POST">
+            Nome: <input type="text" name="nome"><br>
+            Email: <input type="email" name="email" placeholder=""><br>
+            Password: <input type="password" name="password"><br>
+            <input type="submit" value="Accedi">
+        </form>
+        {% if messaggio %}
+            <p>{{messaggio}}</p>
+        {% endif %}
+{%endblock%}

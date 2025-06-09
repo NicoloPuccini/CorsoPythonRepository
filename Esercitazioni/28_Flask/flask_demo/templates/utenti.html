@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+Lista Utenti
+{% endblock %}
+
+{% block content %}
+<h1> Lista Utenti </h1>
+
+<form method="GET" action = "/utenti">
+    <input type = "text" name = "query" placeholder="Cerca nome..." value="{{request.args.get('query','')}}">
+    <input type="submit" value="Cerca">
+</form>
+
+<ul>
+       {% for utente in utenti%}
+            <li>
+                {{utente.nome}} {{utente.cognome}} {{utente.email}}
+                <a href="{{url_for('modifica', id=utente.id)}}" >Modifica</a>
+                <a href="{{url_for('elimina', id=utente.id)}}" onclick="return confirm('Sicuro di voler eliminare questo utente ?')">Elimina</a>
+            </li>
+        {% endfor %}
+
+</ul>
+<a href= "{{url_for('adduser')}}"> Aggiungi nuovo utente</a>
+{%endblock%}
